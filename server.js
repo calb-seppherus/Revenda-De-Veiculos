@@ -1,6 +1,10 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const secretKey = 'revenda_veiculos_secret_key';
+
 const db = require("./models");
 
 
@@ -27,6 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", function (req, res) {
     res.send("Desenvolvimento de Aplicações WEB II");
 });
+
 
 require("./routes/cliente.routes" )(app);
 require("./routes/veiculo.routes" )(app);

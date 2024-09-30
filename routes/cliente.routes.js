@@ -3,7 +3,7 @@ module.exports = (app) => {
     const multer = require("multer");
     const fs = require("fs");
     var path = require("path");
-    
+    var router = require ("express").Router();
 
     var storage = multer.diskStorage({
         destination: function (req, file, cb) {
@@ -36,7 +36,6 @@ module.exports = (app) => {
 
 
     const clientes = require ("../controllers/cliente.controller.js");
-    var router = require ("express").Router();
 
     router.post("/", clientes.create);
     router.get("/", clientes.findAll);

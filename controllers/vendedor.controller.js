@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     const vendedor = {
         nome: req.body.nome,
-        senha: req.body.senha,
+        senha: bcrypt.hashSync(req.body.senha, 10),
         email: req.body.email,
         foto: req.body.foto,
         cpf: req.body.cpf,

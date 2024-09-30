@@ -5,7 +5,7 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {
     const cliente = {
         nome: req.body.nome,
-        senha: req.body.senha,
+        senha: bcrypt.hashSync(req.body.senha, 10),
         email: req.body.email,
         foto: req.body.foto,
         cpf: req.body.cpf,
@@ -88,4 +88,33 @@ exports.deleteAll = (req, res) => {
     .catch((err) => {
         res.status(500).send({ message: err.message || "erro a deletar todos as clientes "});
     });
+};
+
+exports.login = (req, res) => {
+    Cliente.findOne({
+        where: {
+            email: req.body.email,
+        },
+    })
+    .then((cliente) => {
+        if (!cliente) {
+            return res.status(404).send({ message: "Cliente não encontrado" });
+        }
+
+        var passwordIsValid = bcrypt.compareSync (
+            req.body.password,
+            cliente.password
+        );
+
+        if (!passwordIsValid) {
+            return res.status(401).send({
+                accessToken: null, message: "senha invalida!",
+            });
+        }
+        var token = jwt.sign({ id: cliente.id }, secretKey, {
+            expiresIn: "1h"
+        });
+        res.status(200).send({ cliente: cliente, accessToken: token });
+    })
+    .catch((err) => res.status(500).send({ message: err.message }))
 };
