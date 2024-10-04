@@ -1,6 +1,8 @@
 const db = require("../models");
 const Cliente = db.clientes;
-const Op = db.Sequelize.Op;
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcrypt");
+const secretKey = 'revenda_veiculos_secret_key';
 
 exports.create = (req, res) => {
     const cliente = {
@@ -101,10 +103,7 @@ exports.login = (req, res) => {
             return res.status(404).send({ message: "Cliente não encontrado" });
         }
 
-        var passwordIsValid = bcrypt.compareSync (
-            req.body.password,
-            cliente.password
-        );
+        var passwordIsValid = bcrypt.compareSync (req.body.senha,cliente.senha);
 
         if (!passwordIsValid) {
             return res.status(401).send({

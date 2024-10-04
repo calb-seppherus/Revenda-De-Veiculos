@@ -1,6 +1,8 @@
 const db = require("../models");
 const Vendedor = db.vendedores;
-const Op = db.Sequelize.Op;
+var jwt = require("jsonwebtoken");
+var bcrypt = require("bcrypt");
+const secretKey = 'revenda_veiculos_secret_key';
 
 exports.create = (req, res) => {
     const vendedor = {
@@ -88,4 +90,30 @@ exports.deleteAll = (req, res) => {
     .catch((err) => {
         res.status(500).send({ message: err.message || "erro a deletar todos os vendedores "});
     });
+};
+
+exports.login = (req, res) => {
+    Vendedor.findOne({
+        where: {
+            email: req.body.email,
+        },
+    })
+    .then((vendedor) => {
+        if (!vendedor) {
+            return res.status(404).send({ message: "vendedor não encontrado" });
+        }
+
+        var passwordIsValid = bcrypt.compareSync (req.body.senha,vendedor.senha);
+
+        if (!passwordIsValid) {
+            return res.status(401).send({
+                accessToken: null, message: "senha invalida!",
+            });
+        }
+        var token = jwt.sign({ id: vendedor.id }, secretKey, {
+            expiresIn: "1h"
+        });
+        res.status(200).send({ vendedor: vendedor, accessToken: token });
+    })
+    .catch((err) => res.status(500).send({ message: err.message }))
 };

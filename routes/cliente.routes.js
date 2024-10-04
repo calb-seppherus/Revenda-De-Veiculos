@@ -34,7 +34,6 @@ module.exports = (app) => {
         });
     });
 
-
     const clientes = require ("../controllers/cliente.controller.js");
 
     router.post("/", clientes.create);

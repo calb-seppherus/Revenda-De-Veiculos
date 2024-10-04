@@ -1,9 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
-const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const secretKey = 'revenda_veiculos_secret_key';
+
 
 const db = require("./models");
 
@@ -27,6 +25,8 @@ db.sequelize
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get("/", function (req, res) {
     res.send("Desenvolvimento de Aplicações WEB II");
