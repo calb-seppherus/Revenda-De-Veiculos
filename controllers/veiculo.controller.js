@@ -16,7 +16,7 @@ exports.create = (req, res) => {
     Veiculo.create(veiculo)
     .then(data => res.send(data))
     .catch(err => 
-        res.status(500).send({ message: err.message || "erro ao criar a veiculo"})
+        res.status(500).send({ message: err.message || "erro ao criar o veiculo"})
     );
 
 };
@@ -24,7 +24,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     Veiculo.findAll().then((data) => res.send(data))
     .catch((err) =>
-       res.status(500).send({ message: err.message || "Erro ao buscar veiculo" })
+       res.status(500).send({ message: err.message || "Erro ao buscar veiculos" })
     );
 };
 
@@ -84,9 +84,9 @@ exports.deleteAll = (req, res) => {
         truncate: false,
     })
     .then((num) => {
-        res.send({ message: `${num}veiculos foram removidos`});
+        res.send({ message: `${num} veiculos foram removidos`});
     })
     .catch((err) => {
-        res.status(500).send({ message: err.message || "erro a deletar todos as veiculos "});
+        res.status(500).send({ message: err.message || "erro a deletar todos os veiculos "});
     });
 };

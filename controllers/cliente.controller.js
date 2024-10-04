@@ -17,7 +17,7 @@ exports.create = (req, res) => {
     Cliente.create(cliente)
     .then(data => res.send(data))
     .catch(err => 
-        res.status(500).send({ message: err.message || "erro ao criar a cliente"})
+        res.status(500).send({ message: err.message || "erro ao criar o cliente"})
     );
 
 };
@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     Cliente.findAll().then((data) => res.send(data))
     .catch((err) =>
-       res.status(500).send({ message: err.message || "Erro ao buscar cliente" })
+       res.status(500).send({ message: err.message || "Erro ao buscar clientes" })
     );
 };
 
@@ -85,10 +85,10 @@ exports.deleteAll = (req, res) => {
         truncate: false,
     })
     .then((num) => {
-        res.send({ message: `${num}clientes foram removidos`});
+        res.send({ message: `${num} clientes foram removidos`});
     })
     .catch((err) => {
-        res.status(500).send({ message: err.message || "erro a deletar todos as clientes "});
+        res.status(500).send({ message: err.message || "erro a deletar todos os clientes "});
     });
 };
 

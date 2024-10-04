@@ -25,7 +25,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     Vendedor.findAll().then((data) => res.send(data))
     .catch((err) =>
-       res.status(500).send({ message: err.message || "Erro ao buscar vendedor" })
+       res.status(500).send({ message: err.message || "Erro ao buscar vendedores" })
     );
 };
 
@@ -85,7 +85,7 @@ exports.deleteAll = (req, res) => {
         truncate: false,
     })
     .then((num) => {
-        res.send({ message: `${num}vendedores foram removidos`});
+        res.send({ message: `${num} vendedores foram removidos`});
     })
     .catch((err) => {
         res.status(500).send({ message: err.message || "erro a deletar todos os vendedores "});
