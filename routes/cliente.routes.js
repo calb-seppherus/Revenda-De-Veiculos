@@ -36,6 +36,7 @@ module.exports = (app) => {
 
     const clientes = require ("../controllers/cliente.controller.js");
 
+    router.post("/login", clientes.login);
     router.post("/", clientes.create);
     router.get("/", clientes.findAll);
     router.get("/:id", clientes.findOne,);
