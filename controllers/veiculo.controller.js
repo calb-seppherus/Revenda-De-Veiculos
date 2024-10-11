@@ -10,7 +10,8 @@ exports.create = (req, res) => {
         datafab: req.body.datafab,
         preco: req.body.preco,
         crlv: req.body.crlv,
-        veiculoId: req.body.veiculoId,
+        clienteId: req.body.clienteId,
+        vendedorId: req.body.vendedorId,
     };
 
     Veiculo.create(veiculo)

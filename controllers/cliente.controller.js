@@ -11,7 +11,7 @@ exports.create = (req, res) => {
         email: req.body.email,
         foto: req.body.foto,
         cpf: req.body.cpf,
-        clienteId: req.body.clienteId,
+        veiculoId: req.body.veiculoId,
     };
 
     Cliente.create(cliente)
